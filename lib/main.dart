@@ -48,7 +48,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
             border: OutlineInputBorder(),
             labelText: 'An editable text',
           ),
-          maxLines: 3,
+          maxLines: 5,
           controller: myController,
         ),
       ),
