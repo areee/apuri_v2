@@ -10,28 +10,22 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: MyCustomForm(),
+      home: CommentableTextForm(),
     );
   }
 }
 
-// Define a custom Form widget.
-class MyCustomForm extends StatefulWidget {
+class CommentableTextForm extends StatefulWidget {
   @override
-  _MyCustomFormState createState() => _MyCustomFormState();
+  _CommentableTextFormState createState() => _CommentableTextFormState();
 }
 
-// Define a corresponding State class.
-// This class holds the data related to the Form.
-class _MyCustomFormState extends State<MyCustomForm> {
-  // Create a text controller and use it to retrieve the current value
-  // of the TextField.
-  final myController = TextEditingController();
+class _CommentableTextFormState extends State<CommentableTextForm> {
+  final commentedTextFieldController = TextEditingController();
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is disposed.
-    myController.dispose();
+    commentedTextFieldController.dispose();
     super.dispose();
   }
 
@@ -46,23 +40,28 @@ class _MyCustomFormState extends State<MyCustomForm> {
         child: TextField(
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            labelText: 'An editable text',
+            labelText: 'Commented text',
           ),
           maxLines: 5,
-          controller: myController,
+          controller: commentedTextFieldController,
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        // When the user presses the button, show an alert dialog containing
-        // the text that the user has entered into the text field.
         onPressed: () {
           return showDialog(
             context: context,
             builder: (context) {
               return AlertDialog(
-                // Retrieve the text the that user has entered by using the
-                // TextEditingController.
-                content: Text(myController.text),
+                title: Text('Commented text to copy'),
+                content: Text(commentedTextFieldController.text),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text('Close'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
               );
             },
           );
