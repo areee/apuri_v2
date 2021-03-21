@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:clipboard/clipboard.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,6 +23,25 @@ class CommentableTextForm extends StatefulWidget {
 
 class _CommentableTextFormState extends State<CommentableTextForm> {
   final commentedTextFieldController = TextEditingController();
+
+  String addContentBeforeString(String content, String contentBefore) {
+    var lines = content.split('\n');
+
+    var returnedText = StringBuffer();
+
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+
+      var lineResult = '$contentBefore$line';
+      returnedText.write(lineResult);
+
+      if (i != lines.length - 1) {
+        returnedText.write('\n');
+      }
+    }
+
+    return returnedText.toString();
+  }
 
   @override
   void dispose() {
@@ -53,8 +73,22 @@ class _CommentableTextFormState extends State<CommentableTextForm> {
             builder: (context) {
               return AlertDialog(
                 title: Text('Commented text to copy'),
-                content: Text(commentedTextFieldController.text),
+                content: Text(addContentBeforeString(
+                    commentedTextFieldController.text, '///')),
                 actions: <Widget>[
+                  TextButton(
+                    child: Text('Copy to clipboard'),
+                    onPressed: () {
+                      FlutterClipboard.copy(addContentBeforeString(
+                          commentedTextFieldController.text, '///'));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: const Text('Copied to clipboard!'),
+                        ),
+                      );
+                      Navigator.of(context).pop();
+                    },
+                  ),
                   TextButton(
                     child: Text('Close'),
                     onPressed: () {
