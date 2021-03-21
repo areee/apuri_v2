@@ -53,7 +53,7 @@ class _CommentableTextFormState extends State<CommentableTextForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('A helper made with Flutter'),
+        title: Text('Another helper project using Flutter'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

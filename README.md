@@ -1,16 +1,11 @@
 # apuri_v2
 
-A new Flutter project.
+>  Another helper project using Flutter 
 
-## Getting Started
+## Current features
+- Write / paste some text to the text field & press the play button
+  - -> The helper adds three slashes ('///' = XML commented text in .NET Core) before each row
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Plans for upcoming features
+- Select what you want to add to each row (before & after each row)
+- 'camelCase' -> 'camel case' (add spaces to camelCase styled text & change text to lower case)
