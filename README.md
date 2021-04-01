@@ -13,6 +13,7 @@ Made 2021 by Arttu Ylhävuori. See the [license](#License) below.
 
 - Select what you want to add to each row (before & after each row)
 - 'camelCase' -> 'camel case' (add spaces to camelCase styled text & change text to lower case)
+- Add a checkbox: inline every row
 
 ## License
 
