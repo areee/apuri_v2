@@ -40,12 +40,8 @@ class TabBarWidget extends StatelessWidget {
         ),
         body: TabBarView(
           children: <Widget>[
-            Center(
-              child: CommentableTextForm(),
-            ),
-            Center(
-              child: Text('Another TabBarView'),
-            ),
+            CommentableTextForm(),
+            AddSpacesToCamelCaseText(),
           ],
         ),
       ),
@@ -115,6 +111,80 @@ class _CommentableTextFormState extends State<CommentableTextForm> {
                     onPressed: () {
                       FlutterClipboard.copy(addContentBeforeString(
                           commentedTextFieldController.text, '///'));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: const Text('Copied to clipboard!'),
+                        ),
+                      );
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  TextButton(
+                    child: Text('Close'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        tooltip: 'Start',
+        child: Icon(Icons.play_arrow_rounded),
+      ),
+    );
+  }
+}
+
+class AddSpacesToCamelCaseText extends StatefulWidget {
+  @override
+  AddSpacesToeCamelCaseTextState createState() =>
+      AddSpacesToeCamelCaseTextState();
+}
+
+class AddSpacesToeCamelCaseTextState extends State<AddSpacesToCamelCaseText> {
+  final camelCaseTextFieldController = TextEditingController();
+
+  String addSpacesToCamelCaseText(String content) => content.replaceAllMapped(
+      RegExp(r'(?<=[a-z])[A-Z]'),
+      (Match m) => (' ' + m.group(0)).toLowerCase());
+
+  @override
+  void dispose() {
+    camelCaseTextFieldController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: TextField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'CamelCase text',
+          ),
+          maxLines: 5,
+          controller: camelCaseTextFieldController,
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          return showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text('CamelCase text to copy'),
+                content: Text(addSpacesToCamelCaseText(
+                    camelCaseTextFieldController.text)),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text('Copy to clipboard'),
+                    onPressed: () {
+                      FlutterClipboard.copy(addSpacesToCamelCaseText(
+                          camelCaseTextFieldController.text));
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: const Text('Copied to clipboard!'),
