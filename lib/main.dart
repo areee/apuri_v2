@@ -11,7 +11,44 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: CommentableTextForm(),
+      home: TabBarWidget(),
+    );
+  }
+}
+
+class TabBarWidget extends StatelessWidget {
+  const TabBarWidget({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      initialIndex: 0,
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Another helper project using Flutter'),
+          bottom: const TabBar(
+            tabs: <Widget>[
+              Tab(
+                text: 'Add XML Documentation Comments',
+              ),
+              Tab(
+                text: 'Add Spaces to camelCase Text',
+              ),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: <Widget>[
+            Center(
+              child: CommentableTextForm(),
+            ),
+            Center(
+              child: Text('Another TabBarView'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -52,15 +89,12 @@ class _CommentableTextFormState extends State<CommentableTextForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Another helper project using Flutter'),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: TextField(
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            labelText: 'Commented text',
+            labelText: 'Commentable text',
           ),
           maxLines: 5,
           controller: commentedTextFieldController,
