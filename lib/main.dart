@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:clipboard/clipboard.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -11,13 +13,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: TabBarWidget(),
+      home: const TabBarWidget(),
     );
   }
 }
 
 class TabBarWidget extends StatelessWidget {
-  const TabBarWidget({Key key}) : super(key: key);
+  const TabBarWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class TabBarWidget extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: <Widget>[
             CommentableTextForm(),
             AddSpacesToCamelCaseText(),
@@ -50,14 +52,16 @@ class TabBarWidget extends StatelessWidget {
 }
 
 class CommentableTextForm extends StatefulWidget {
+  const CommentableTextForm({super.key});
+
   @override
-  _CommentableTextFormState createState() => _CommentableTextFormState();
+  State<CommentableTextForm> createState() => _CommentableTextFormState();
 }
 
 class _CommentableTextFormState extends State<CommentableTextForm> {
   final commentedTextFieldController = TextEditingController();
 
-  String addContentBeforeString(String content, String contentBefore) {
+  String _addContentBeforeString(String content, String contentBefore) {
     var lines = content.split('\n');
 
     var returnedText = StringBuffer();
@@ -72,7 +76,6 @@ class _CommentableTextFormState extends State<CommentableTextForm> {
         returnedText.write('\n');
       }
     }
-
     return returnedText.toString();
   }
 
@@ -88,7 +91,7 @@ class _CommentableTextFormState extends State<CommentableTextForm> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: TextField(
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'Commentable text',
           ),
@@ -102,25 +105,25 @@ class _CommentableTextFormState extends State<CommentableTextForm> {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: Text('Commented text to copy'),
-                content: Text(addContentBeforeString(
+                title: const Text('Commented text to copy'),
+                content: Text(_addContentBeforeString(
                     commentedTextFieldController.text, '///')),
                 actions: <Widget>[
                   TextButton(
-                    child: Text('Copy to clipboard'),
+                    child: const Text('Copy to clipboard'),
                     onPressed: () {
-                      FlutterClipboard.copy(addContentBeforeString(
+                      FlutterClipboard.copy(_addContentBeforeString(
                           commentedTextFieldController.text, '///'));
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: const Text('Copied to clipboard!'),
+                        const SnackBar(
+                          content: Text('Copied to clipboard!'),
                         ),
                       );
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: Text('Close'),
+                    child: const Text('Close'),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -131,24 +134,26 @@ class _CommentableTextFormState extends State<CommentableTextForm> {
           );
         },
         tooltip: 'Start',
-        child: Icon(Icons.play_arrow_rounded),
+        child: const Icon(Icons.play_arrow_rounded),
       ),
     );
   }
 }
 
 class AddSpacesToCamelCaseText extends StatefulWidget {
+  const AddSpacesToCamelCaseText({super.key});
+
   @override
-  AddSpacesToeCamelCaseTextState createState() =>
-      AddSpacesToeCamelCaseTextState();
+  State<AddSpacesToCamelCaseText> createState() =>
+      _AddSpacesToeCamelCaseTextState();
 }
 
-class AddSpacesToeCamelCaseTextState extends State<AddSpacesToCamelCaseText> {
+class _AddSpacesToeCamelCaseTextState extends State<AddSpacesToCamelCaseText> {
   final camelCaseTextFieldController = TextEditingController();
 
   String addSpacesToCamelCaseText(String content) => content.replaceAllMapped(
       RegExp(r'(?<=[a-z])[A-Z]'),
-      (Match m) => (' ' + m.group(0)).toLowerCase());
+      (Match m) => (' ${m.group(0)}').toLowerCase());
 
   @override
   void dispose() {
@@ -162,7 +167,7 @@ class AddSpacesToeCamelCaseTextState extends State<AddSpacesToCamelCaseText> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: TextField(
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'CamelCase text',
           ),
@@ -176,25 +181,25 @@ class AddSpacesToeCamelCaseTextState extends State<AddSpacesToCamelCaseText> {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: Text('CamelCase text to copy'),
+                title: const Text('CamelCase text to copy'),
                 content: Text(addSpacesToCamelCaseText(
                     camelCaseTextFieldController.text)),
                 actions: <Widget>[
                   TextButton(
-                    child: Text('Copy to clipboard'),
+                    child: const Text('Copy to clipboard'),
                     onPressed: () {
                       FlutterClipboard.copy(addSpacesToCamelCaseText(
                           camelCaseTextFieldController.text));
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: const Text('Copied to clipboard!'),
+                        const SnackBar(
+                          content: Text('Copied to clipboard!'),
                         ),
                       );
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: Text('Close'),
+                    child: const Text('Close'),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -205,7 +210,7 @@ class AddSpacesToeCamelCaseTextState extends State<AddSpacesToCamelCaseText> {
           );
         },
         tooltip: 'Start',
-        child: Icon(Icons.play_arrow_rounded),
+        child: const Icon(Icons.play_arrow_rounded),
       ),
     );
   }
