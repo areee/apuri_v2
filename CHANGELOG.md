@@ -16,4 +16,4 @@
 
 - Initial version.
   - Add XML documentation comments & spaces to camelCase text.
-  - Copy result to the clipboard.
+  - Copy results to the clipboard.
