@@ -2,7 +2,7 @@
 
 > Another helper project using Flutter
 
-Made 2021 by Arttu Ylhävuori. See the [license](#License) below.
+Made 2021-2023 by Arttu Ylhävuori. See the [license](#License) below.
 
 ## Current features
 
